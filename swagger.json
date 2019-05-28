@@ -1,0 +1,478 @@
+{
+  "swagger" : "2.0",
+  "host" : "developer-api.sparebank1.no",
+  "basePath" : "/open/personal/banking/accounts",
+  "schemes" : [ "https" ],
+  "paths" : {
+    "/all" : {
+      "get" : {
+        "description" : "",
+        "operationId" : "getAccounts",
+        "summary" : "Find all banking accounts.",
+        "produces" : [ "application/vnd.sparebank1.v1+json; charset=utf-8" ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful response",
+            "schema" : {
+              "$ref" : "#/definitions/AccountsDto"
+            }
+          },
+          "401" : {
+            "description" : "User not authenticated",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorsDTO"
+            }
+          },
+          "403" : {
+            "description" : "User not authorized",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorsDTO"
+            }
+          },
+          "404" : {
+            "description" : "Resource not found",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorsDTO"
+            }
+          }
+        }
+      }
+    },
+    "/{accountId}/transactions/{transactionId}" : {
+      "get" : {
+        "description" : "",
+        "operationId" : "getTransactionDetails",
+        "summary" : "Reads account transaction details for a given transaction",
+        "produces" : [ "application/vnd.sparebank1.v1+json; charset=utf-8" ],
+        "parameters" : [ {
+          "description" : "Account identifier",
+          "required" : true,
+          "in" : "path",
+          "name" : "accountId",
+          "type" : "string"
+        }, {
+          "description" : "Transaction identifier",
+          "required" : true,
+          "in" : "path",
+          "name" : "transactionId",
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful response",
+            "schema" : {
+              "$ref" : "#/definitions/TransactionDto"
+            }
+          },
+          "401" : {
+            "description" : "User not authenticated",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorsDTO"
+            }
+          },
+          "403" : {
+            "description" : "User not authorized",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorsDTO"
+            }
+          },
+          "404" : {
+            "description" : "Resource not found",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorsDTO"
+            }
+          }
+        }
+      }
+    },
+    "/{accountId}/transactions" : {
+      "get" : {
+        "description" : "",
+        "operationId" : "getAccountTransactions",
+        "summary" : "Reads account transactions data from a given account",
+        "produces" : [ "application/vnd.sparebank1.v1+json; charset=utf-8" ],
+        "parameters" : [ {
+          "description" : "Account identifier",
+          "required" : true,
+          "in" : "path",
+          "name" : "accountId",
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful response",
+            "schema" : {
+              "$ref" : "#/definitions/TransactionsDto"
+            }
+          },
+          "401" : {
+            "description" : "User not authenticated",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorsDTO"
+            }
+          },
+          "403" : {
+            "description" : "User not authorized",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorsDTO"
+            }
+          },
+          "404" : {
+            "description" : "Resource not found",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorsDTO"
+            }
+          }
+        }
+      }
+    },
+    "/default" : {
+      "get" : {
+        "description" : "Returns the default payment account of the logged in user, if no default payment account is found the users first account is returned.",
+        "operationId" : "getDefaultBalanceAccount",
+        "summary" : "Find the default account.",
+        "produces" : [ "application/vnd.sparebank1.v1+json; charset=utf-8" ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful response",
+            "schema" : {
+              "$ref" : "#/definitions/AccountDto"
+            }
+          },
+          "401" : {
+            "description" : "User not authenticated",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorsDTO"
+            }
+          },
+          "403" : {
+            "description" : "User not authorized",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorsDTO"
+            }
+          },
+          "404" : {
+            "description" : "Resource not found",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorsDTO"
+            }
+          }
+        }
+      }
+    },
+    "/{id}" : {
+      "get" : {
+        "description" : "Will not accept account numbers, the id must be used. If unknown the id can be accessed by getting all accounts and following the links.",
+        "operationId" : "getAccount",
+        "summary" : "Finds the account with the given id. Returns account with details",
+        "produces" : [ "application/vnd.sparebank1.v1+json; charset=utf-8" ],
+        "parameters" : [ {
+          "required" : true,
+          "in" : "path",
+          "name" : "id",
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful response",
+            "schema" : {
+              "$ref" : "#/definitions/AccountDto"
+            }
+          },
+          "401" : {
+            "description" : "User not authenticated",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorsDTO"
+            }
+          },
+          "403" : {
+            "description" : "User not authorized",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorsDTO"
+            }
+          },
+          "404" : {
+            "description" : "Resource not found",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorsDTO"
+            }
+          }
+        }
+      }
+    },
+    "/" : {
+      "get" : {
+        "description" : "",
+        "operationId" : "getRoot",
+        "summary" : "Root API",
+        "produces" : [ "application/vnd.sparebank1.v1+json; charset=utf-8" ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/RootDto"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions" : {
+    "TransactionsDto" : {
+      "properties" : {
+        "transactions" : {
+          "description" : "Transactions",
+          "items" : {
+            "$ref" : "#/definitions/TransactionDto"
+          },
+          "type" : "array"
+        },
+        "_links" : {
+          "$ref" : "#/definitions/LinksDTO"
+        }
+      },
+      "type" : "object"
+    },
+    "LinksDTO" : {
+      "type" : "object"
+    },
+    "TransactionDto" : {
+      "required" : [ "amount" ],
+      "properties" : {
+        "amount" : {
+          "$ref" : "#/definitions/MoneyDto"
+        },
+        "accountingDate" : {
+          "description" : "The date the transaction was booked (Norwegian: bokfÃžringsdato)",
+          "format" : "date",
+          "type" : "string"
+        },
+        "description" : {
+          "description" : "Transaction description.",
+          "type" : "string"
+        },
+        "fullDescription" : {
+          "description" : "The original unparsed transaction text",
+          "type" : "string"
+        },
+        "archiveReference" : {
+          "description" : "Archive reference",
+          "type" : "string"
+        },
+        "remoteAccount" : {
+          "description" : "Remote account number",
+          "type" : "string"
+        },
+        "transactionCode" : {
+          "description" : "Code identifying the type of transaction (E.g. cash withdrawal, purchase, etc).",
+          "type" : "string"
+        },
+        "transactionType" : {
+          "description" : "A human-readable version of the transaction code",
+          "type" : "string"
+        },
+        "_links" : {
+          "$ref" : "#/definitions/LinksDTO"
+        }
+      },
+      "type" : "object"
+    },
+    "MoneyDto" : {
+      "required" : [ "amount", "currencyCode" ],
+      "properties" : {
+        "amount" : {
+          "description" : "The amount in the monetary unit represented by the currency code. The format is the monetary unit followed by . and two digits of cent.The value of cent in this context is one hundredth of the monetary unit.12.67 in NOK would equal 12 kroners and 67 ore",
+          "example" : 123.45,
+          "type" : "number"
+        },
+        "currencyCode" : {
+          "description" : "The three letter currency code",
+          "example" : "NOK",
+          "type" : "string"
+        }
+      },
+      "type" : "object"
+    },
+    "AccountNumberDto" : {
+      "required" : [ "formatted", "value" ],
+      "properties" : {
+        "value" : {
+          "description" : "The none-formatted account number. 11 digits",
+          "example" : "11111111111",
+          "type" : "string"
+        },
+        "formatted" : {
+          "description" : "The formatted account number. 11 digits split with a space after the fourth and sixth digit.",
+          "example" : "1111 11 11111",
+          "type" : "string"
+        }
+      },
+      "type" : "object"
+    },
+    "ErrorDTO" : {
+      "properties" : {
+        "code" : {
+          "type" : "string"
+        },
+        "message" : {
+          "type" : "string"
+        },
+        "resource" : {
+          "type" : "string"
+        }
+      },
+      "type" : "object"
+    },
+    "ErrorsDTO" : {
+      "properties" : {
+        "errors" : {
+          "items" : {
+            "$ref" : "#/definitions/ErrorDTO"
+          },
+          "type" : "array"
+        }
+      },
+      "type" : "object"
+    },
+    "RootDto" : {
+      "properties" : {
+        "_links" : {
+          "$ref" : "#/definitions/LinksDTO"
+        }
+      },
+      "type" : "object"
+    },
+    "CustomerDto" : {
+      "required" : [ "firstName", "lastName", "name" ],
+      "properties" : {
+        "name" : {
+          "description" : "The customers full name",
+          "example" : "John Doe",
+          "type" : "string"
+        },
+        "firstName" : {
+          "description" : "The customers first name",
+          "example" : "John",
+          "type" : "string"
+        },
+        "lastName" : {
+          "description" : "The customers last name",
+          "example" : "Doe",
+          "type" : "string"
+        }
+      },
+      "type" : "object"
+    },
+    "AccountDto" : {
+      "required" : [ "accountNumber", "availableBalance", "balance", "id", "owner", "product", "type" ],
+      "properties" : {
+        "id" : {
+          "description" : "The id of the account. Used for further requests towards the account API",
+          "example" : "WU2ylmbUBQZv_E23XJzMfVv_fo2",
+          "type" : "string"
+        },
+        "accountNumber" : {
+          "$ref" : "#/definitions/AccountNumberDto"
+        },
+        "name" : {
+          "description" : "The default name set by the system",
+          "example" : "My account",
+          "type" : "string"
+        },
+        "description" : {
+          "description" : "A description of the account",
+          "example" : "BRUKSKONTO",
+          "type" : "string"
+        },
+        "balance" : {
+          "$ref" : "#/definitions/MoneyDto"
+        },
+        "availableBalance" : {
+          "$ref" : "#/definitions/MoneyDto"
+        },
+        "owner" : {
+          "$ref" : "#/definitions/CustomerDto"
+        },
+        "product" : {
+          "description" : "The product code for the account",
+          "example" : "LOCDEPOSIT",
+          "type" : "string"
+        },
+        "type" : {
+          "description" : "The account type",
+          "example" : "USER",
+          "type" : "string"
+        },
+        "interestRate" : {
+          "description" : "The interest rate for the account",
+          "example" : 0.1,
+          "type" : "number"
+        },
+        "freeWithdrawalsLeft" : {
+          "description" : "The number of withdrawals remaining during the current calendar year before a fee is charged. Warning: This value is only updated once a day. If this element is not present the account has no limit for the number of free withdrawals",
+          "format" : "int32",
+          "example" : 12,
+          "type" : "integer"
+        },
+        "_links" : {
+          "$ref" : "#/definitions/LinksDTO"
+        }
+      },
+      "type" : "object"
+    },
+    "AccountsDto" : {
+      "properties" : {
+        "accounts" : {
+          "items" : {
+            "$ref" : "#/definitions/AccountDto"
+          },
+          "type" : "array"
+        },
+        "_links" : {
+          "$ref" : "#/definitions/LinksDTO"
+        }
+      },
+      "type" : "object"
+    }
+  },
+  "securityDefinitions" : {
+    "OAuthImplicit" : {
+      "type" : "oauth2",
+      "description" : "OAuth",
+      "flow" : "implicit",
+      "scopes" : {
+        "resource.WRITE" : "",
+        "resource.READ" : ""
+      },
+      "authorizationUrl" : "http://localhost:8089/api/oauth/authorize"
+    },
+    "OAuthAccessCode" : {
+      "type" : "oauth2",
+      "description" : "OAuth",
+      "flow" : "accessCode",
+      "scopes" : {
+        "resource.WRITE" : "",
+        "resource.READ" : ""
+      },
+      "authorizationUrl" : "http://localhost:8089/api/oauth/authorize",
+      "tokenUrl" : "https://developer-api.sparebank1.no/oauth/token"
+    }
+  },
+  "security" : [ {
+    "OAuthImplicit" : [ "resource.WRITE", "resource.READ" ]
+  }, {
+    "OAuthAccessCode" : [ "resource.WRITE", "resource.READ" ]
+  } ],
+  "info" : {
+    "title" : "PM Accounts",
+    "description" : "Used for getting the personal banking accounts and transactions for the logged in user.",
+    "version" : "1.4.0"
+  },
+  "x-axway" : {
+    "corsEnabled" : true,
+    "basePaths" : [ "" ],
+    "serviceType" : "rest",
+    "deprecated" : false,
+    "tags" : { }
+  }
+}

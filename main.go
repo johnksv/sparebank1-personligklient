@@ -19,12 +19,14 @@ import (
 )
 
 var DescriptionToMemo = map[string]string {
-	"KIWI 471 BISLET THERESESGT 3 OSLO": "KIWI BISLET",
-	"KIWI 471 BISLET": "KIWI BISLET",
-	"VIPPS *RUTER AS": "VIPPS RUTER ",
-	"REMA TORGGATA REMA 1000 TO OSLO": "REMA Torggata",
+	"KIWI 471 BISLET THERESESGT 3 OSLO": "KIWI BISLETT",
+	"KIWI 471 BISLET":                   "KIWI BISLETT",
+	"VIPPS *RUTER AS":                   "VIPPS RUTER ",
+	"REMA TORGGATA REMA 1000 TO OSLO":   "REMA Torggata",
 	"JOKER ADAMSTUEN ULLEVÅLSVN 9 OSLO": "Joker Adamstuen",
 	"KIWI 365 ST.OLA ST.OLAVSPLAS OSLO": "KIWI ST.OLAVSPLASS",
+	"EXTRA H. HÅRFAGRES OSLO":           "Coop Extra H. Hårfagres",
+	"JOKER KIRKEVN KIRKEVN. 90 OSLO.":   "Joker Kirkeveien",
 }
 
 func main() {

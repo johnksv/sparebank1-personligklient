@@ -35,9 +35,14 @@ func main() {
 	flag.Parse()
 
 	//_ = os.Setenv("DEBUG", "1")
+	clientId := lookupEnvOrAsk("ClientID")
+	clientSecret := lookupEnvOrAsk("ClientSecret")
+	finInst := lookupEnvOrAsk("FinInst")
+	redirectURI := lookupEnvOrAsk("RedirectURI")
+
 	conf := &oauth2.Config{
-		ClientID:     os.Getenv("ClientID"),
-		ClientSecret: os.Getenv("ClientSecret"),
+		ClientID:     clientId,
+		ClientSecret: clientSecret,
 		Endpoint: oauth2.Endpoint{
 			AuthURL:  "https://api.sparebank1.no/oauth/authorize",
 			TokenURL: "https://api.sparebank1.no/oauth/token",
@@ -45,8 +50,8 @@ func main() {
 	}
 
 	url := conf.AuthCodeURL("1029384756",
-		oauth2.SetAuthURLParam("finInst", os.Getenv("FinInst")),
-		oauth2.SetAuthURLParam("redirect_uri", os.Getenv("RedirectURI")),
+		oauth2.SetAuthURLParam("finInst", finInst),
+		oauth2.SetAuthURLParam("redirect_uri", redirectURI),
 	)
 
 	var accessToken = os.Getenv("AccessToken")
@@ -175,4 +180,17 @@ func mapToMemo(description string) string{
 	}
 
 	return description
+}
+
+func lookupEnvOrAsk(key string) string {
+	value, isPresent := os.LookupEnv(key)
+	if isPresent {
+		return value
+	}
+	fmt.Print("Enter " + key + ": ")
+	if _, err := fmt.Scan(&value); err != nil {
+		log.Fatal(err)
+	}
+
+	return value
 }

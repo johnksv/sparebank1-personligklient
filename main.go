@@ -5,7 +5,7 @@ import (
 	"flag"
 	"fmt"
 	"github.com/go-openapi/runtime"
-	"github.com/johnksv/sparebank1-pm/client/operations"
+	"github.com/johnksv/sparebank1-personligklient/client/operations"
 	"golang.org/x/oauth2"
 	"gopkg.in/AlecAivazis/survey.v1"
 	"log"
@@ -15,7 +15,7 @@ import (
 	"time"
 
 	httptransport "github.com/go-openapi/runtime/client"
-	apiclient "github.com/johnksv/sparebank1-pm/client"
+	apiclient "github.com/johnksv/sparebank1-personligklient/client"
 )
 
 var DescriptionToMemo = map[string]string {

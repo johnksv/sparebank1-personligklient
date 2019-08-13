@@ -11,7 +11,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	"github.com/johnksv/sparebank1-pm/client/operations"
+	"github.com/johnksv/sparebank1-personligklient/client/operations"
 )
 
 // Default p m accounts HTTP client.

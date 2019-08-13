@@ -13,7 +13,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/johnksv/sparebank1-pm/models"
+	models "github.com/johnksv/sparebank1-personligklient/models"
 )
 
 // GetTransactionDetailsReader is a Reader for the GetTransactionDetails structure.

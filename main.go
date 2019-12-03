@@ -2,6 +2,7 @@ package main
 
 import (
 	"bufio"
+	"context"
 	"flag"
 	"fmt"
 	"github.com/go-openapi/runtime"
@@ -21,7 +22,9 @@ import (
 var DescriptionToMemo = map[string]string {
 	"KIWI 471 BISLET THERESESGT 3 OSLO": "KIWI BISLETT",
 	"KIWI 471 BISLET":                   "KIWI BISLETT",
+	"KIWI 307 KRINGS OLAV M. TROV OSLO": "KIWI Kringsjå",
 	"VIPPS *RUTER AS":                   "VIPPS RUTER ",
+	"VIPPS*RUTER AS":                    "VIPPS RUTER ",
 	"REMA TORGGATA REMA 1000 TO OSLO":   "REMA Torggata",
 	"JOKER ADAMSTUEN ULLEVÅLSVN 9 OSLO": "Joker Adamstuen",
 	"KIWI 365 ST.OLA ST.OLAVSPLAS OSLO": "KIWI ST.OLAVSPLASS",
@@ -58,10 +61,18 @@ func main() {
 	if accessToken == "" {
 		fmt.Printf("Visit the URL for the auth dialog: %v", url)
 		fmt.Println()
-		fmt.Println("Enter accessToken to be used.")
-		if _, err := fmt.Scan(&accessToken); err != nil {
+		fmt.Println("Enter code from url redirect.")
+		var authCode string
+		if _, err := fmt.Scan(&authCode); err != nil {
 			log.Fatal(err)
 		}
+		token, err := conf.Exchange(context.Background(), authCode)
+		if err != nil {
+			log.Fatal(err)
+		}
+		accessToken = token.AccessToken
+		fmt.Println("Access token is valid until", token.Expiry.String())
+		fmt.Println("Access token is: ", accessToken)
 	}
 
 	rt := httptransport.New(
